@@ -1,4 +1,6 @@
 import components.*;
+import exceptions.BrowserNotSupportedException;
+import factories.WebDriverFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,12 +22,8 @@ public class FirstTest {
     }
 
     @BeforeEach
-    public void init() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        driver = new ChromeDriver(options);
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
+    public void init() throws BrowserNotSupportedException {
+        driver = new WebDriverFactory().createDriver();
     }
     @AfterEach
     public void close() {
